@@ -1,14 +1,15 @@
-#include "NEW_SHELL.h"
+#include "shell.h"
 
 /**
- * get_string - returns array of single string and null
+ * get_string - returns null and an array of a single string
  * @str: string to return
- * @i: number of characters in the string
- * @start: index to start from
- * @delim: the delimiter
+ * @i: number of char in the string
+ * @start: start from index
+ * @delim: the delimeter
  *
- * Return: Array of strings if success, NULL if failure
+ * Return: Array of strings on success, NULL on failure
  */
+
 char *get_string(char *str, int i, char delim, int start)
 {
 	int n;
@@ -29,13 +30,14 @@ char *get_string(char *str, int i, char delim, int start)
 }
 
 /**
- * strings - returns a terminated null array of strings
+ * strings - returns a null terminated array of strings
  * @str: string to split up
  * @words: pointer to strings
- * @delim: the delimiter
+ * @delim: the delimeter
  *
  * Return: Array of strings or NULL;
  */
+
 char **strings(char *str, char delim, char **words)
 {
 	int j = 0, i = 0;
@@ -54,28 +56,30 @@ char **strings(char *str, char delim, char **words)
 		}
 		i++;
 	}
-
 	if (str[i] == '\0' && str[i - 1] != delim)
 	{
 		words[j] = get_string(str, i, delim, start);
 		words[j + 1] = NULL;
+
 		return (words);
 	}
 	else
 	{
 		words[j] = NULL;
+
 		return (words);
 	}
 }
 
 /**
- * split_input_string - splits the string at the delimiter.
+ * string_split - splits a string at the delimiter.
  * @str: string to split
- * @delim: delimiter to use for splitting
+ * @delim: the delimeter to use for splitting
  *
  * Return: Array of strings on success, NULL on failure
  */
-char **split_input_string(char *str, char delim)
+
+char **string_split(char *str, char delim)
 {
 	int i, word_count = 0;
 	char **words;
@@ -83,10 +87,10 @@ char **split_input_string(char *str, char delim)
 	if (!str || !delim)
 		return (NULL);
 
-	if (contains_special_char(str) == 0)
+	if (check_char(str) == 0)
 		return (NULL);
 
-	for (i = 0; (size_t)i < string_length(str); i++)
+	for (i = 0; (size_t) i < _strlen(str); i++)
 	{
 		if (str[i] == '\n')
 			str[i] = delim;
@@ -113,4 +117,3 @@ char **split_input_string(char *str, char delim)
 
 	return (strings(str, delim, words));
 }
-
